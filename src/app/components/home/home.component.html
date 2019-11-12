@@ -1,0 +1,38 @@
+<h3 class="title">School</h3>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <!--Subject Table-->
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <th scope="col">User</th>
+        <th scope="col"></th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users; let i=index">
+          <td>{{user.name}}</td>
+          <a (click)="detailsUser(user.id)">
+            <i class="material-icons icon-blue">info</i>
+          </a>
+        </tr>
+        </tbody>
+      </table>
+      <button class="btn btn-primary" type="button" id="addUser" data-toggle="modal" data-target="#newSubject">Add new User</button>
+    </div>
+
+    <div class="col">
+      <!--Subject Table-->
+      <table class="table table-bordered table-hover">
+        <thead class="thead-dark">
+        <th scope="col">Details of User</th>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users; let i=index">
+          <td>{{user.name}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

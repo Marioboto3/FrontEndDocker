@@ -1,0 +1,47 @@
+.title{
+  text-align: center;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+input {
+  text-align: center;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+i.icon-blue {
+  color: blue;
+}
+
+i.icon-red {
+  color: red;
+}
+
+.add {
+  position: relative;
+  text-align: center;
+}
+
+#addStudent {
+  margin-left: 300px;
+}
+
+#addSubject {
+  margin-left: 120px;
+}
+
+#selectSubject {
+  margin-left: -5px;
+}
