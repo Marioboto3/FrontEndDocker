@@ -27,7 +27,7 @@ export class UserService {
   }
 
   putUser(user: User) {
-    return this.http.put(this.environment.urlStudent + `/${user.id}`, user);
+    return this.http.put(this.environment.urlStudent + `/${user._id}`, user);
   }
 
   deleteUser(id: string) {

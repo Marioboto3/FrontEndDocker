@@ -12,27 +12,135 @@
         <tbody>
         <tr *ngFor="let user of users; let i=index">
           <td>{{user.name}}</td>
-          <a (click)="detailsUser(user.id)">
+          <a (click)="detailsUser(user._id)">
             <i class="material-icons icon-blue">info</i>
+          </a>
+          <a (click)="deleteUser(user._id,i)">
+            <i class="material-icons icon-red">delete</i>
+          </a>
+          <a data-toggle="modal" data-target="#updateUser"(click)="assignUserId(user._id) ">
+            <i class="material-icons icon-blue">update</i>
           </a>
         </tr>
         </tbody>
       </table>
-      <button class="btn btn-primary" type="button" id="addUser" data-toggle="modal" data-target="#newSubject">Add new User</button>
+      <button class="btn btn-primary" type="button" id="addUser" data-toggle="modal" data-target="#newUser">Add new User</button>
     </div>
 
     <div class="col">
       <!--Subject Table-->
       <table class="table table-bordered table-hover">
         <thead class="thead-dark">
-        <th scope="col">Details of User</th>
+        <th colspan="4">Details of User</th>
         </thead>
         <tbody>
-        <tr *ngFor="let user of users; let i=index">
-          <td>{{user.name}}</td>
+        <tr>
+          <td>Name</td>
+          <td>Email</td>
+          <td>Pass</td>
+        </tr>
+        <tr *ngIf="singleUser!=null">
+          <td>{{singleUser.name}}</td>
+          <td>{{singleUser.email}}</td>
+          <td>{{singleUser.pass}}</td>
         </tr>
         </tbody>
       </table>
     </div>
   </div>
 </div>
+
+<!-- Add User-->
+<div class="modal fade" id="newUser" tabindex="-1" role="dialog" aria-labelledby="subjectLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newUs">New User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userForm">
+          <div class="form-group">
+            <div class="example-container">
+              <input type="text" id="userName" formControlName="name" placeholder="Name" />
+            </div>
+            <div class="example-container">
+              <input type="text" id="email" formControlName="email" placeholder="Email" />
+            </div>
+            <div class="example-container">
+              <input type="text" id="pass" formControlName="pass" placeholder="Pass"/>
+            </div>
+          </div>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="alert alert-danger" *ngIf="userForm.get('name').hasError(validation.type) && (userForm.get('name').dirty || userForm.get('name').touched)">
+                {{ validation.message }}
+              </div>
+              <div class="alert alert-danger" *ngIf="userForm.get('email').hasError(validation.type) && (userForm.get('email').dirty || userForm.get('email').touched)">
+                {{ validation.message }}
+              </div>
+              <div class="alert alert-danger" *ngIf="userForm.get('pass').hasError(validation.type) && (userForm.get('pass').dirty || userForm.get('pass').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="addUser()" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Update User-->
+<div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="subjectLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="aa">Edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="userFormUpdate">
+          <div class="form-group">
+            <div class="example-container">
+              <input type="text" id="userNameU" formControlName="name" placeholder="Name" />
+            </div>
+            <div class="example-container">
+              <input type="text" id="emailU" formControlName="email" placeholder="Email" />
+            </div>
+            <div class="example-container">
+              <input type="text" id="passU" formControlName="pass" placeholder="Pass"/>
+            </div>
+          </div>
+          <div class="validation-errors">
+            <ng-container *ngFor="let validation of validation_messages.name">
+              <div class="alert alert-danger" *ngIf="userFormUpdate.get('name').hasError(validation.type) && (userFormUpdate.get('name').dirty || userFormUpdate.get('name').touched)">
+                {{ validation.message }}
+              </div>
+              <div class="alert alert-danger" *ngIf="userFormUpdate.get('email').hasError(validation.type) && (userFormUpdate.get('email').dirty || userFormUpdate.get('email').touched)">
+                {{ validation.message }}
+              </div>
+              <div class="alert alert-danger" *ngIf="userFormUpdate.get('pass').hasError(validation.type) && (userFormUpdate.get('pass').dirty || userFormUpdate.get('pass').touched)">
+                {{ validation.message }}
+              </div>
+            </ng-container>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="updateUser(idSelectedUser)" data-dismiss="modal">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
